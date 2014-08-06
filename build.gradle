@@ -1,0 +1,53 @@
+apply plugin: "groovy"
+apply plugin: "spring-boot"
+apply plugin: "application"
+apply plugin: "idea"
+
+sourceCompatibility = "1.6"
+targetCompatibility = "1.6"
+
+version = "${version}"
+group = "${group}"
+mainClassName = "trinity.spring.Application"
+
+buildscript {
+    ext {
+        springBootVersion = '1.1.0.M2'
+        groovyVersion = '2.3.2'
+    }
+    repositories {
+        mavenCentral()
+        maven {
+            url 'http://repo.spring.io/milestone'
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+jar {
+    baseName = 'boot-templates'
+    version = '1.0.0'
+}
+
+repositories {
+    jcenter()
+    maven {
+        url 'http://repo.spring.io/milestone'
+    }
+}
+
+dependencies {
+    compile "commons-lang:commons-lang:2.6"
+    compile "org.codehaus.groovy:groovy:${groovyVersion}"
+    compile "org.codehaus.groovy:groovy-templates:${groovyVersion}"
+    compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}"
+
+    testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.12'
+}
